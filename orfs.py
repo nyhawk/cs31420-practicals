@@ -76,6 +76,7 @@ def findOrfs(sequence: str):
     stopPos = 0
     orfLength = 0
     orfNum = 0
+    startFound = False
 
     for frameName, seq, offset in frames:
         # look for start codon
@@ -85,21 +86,29 @@ def findOrfs(sequence: str):
 
             if (codon == "ATG"):
                 # start codon found
-                startPos = pos + offset + 1
+                startPos = pos + 1
+                startFound = True
 
             elif (codon in stopCodons):
                 # process sequence
                 # in-frame check
-                stopPos = pos + offset + 3
-                orfLength = (stopPos) - (startPos) + 1
-                if ((orfLength % 3 == 0) and (orfLength > 75)):
-                    # no remainder so divides by 3 and passes check
+                stopPos = pos + 3
 
-                    # write to file
-                    orfNum += 1
-                    
-                    writeToFile(orfNum, startPos, stopPos, orfLength, frameName)
-                    print(f"start {startPos}, stop {stopPos}, stop codon {codon}")
+                if (startFound == True):
+                    orfLength = (stopPos) - (startPos) + 1
+                    if ((orfLength % 3 == 0) and (orfLength > 75)):
+                        # no remainder so divides by 3 and passes check
+
+                        # write to file
+                        orfNum += 1
+                        
+                        writeToFile(orfNum, startPos, stopPos, orfLength, frameName)
+                        print(f"start {startPos}, stop {stopPos}, stop codon {codon}")
+
+                        # reset position variables
+                        startPos = 0
+                        stopPos = 0
+                        startFound = False
 
 
     

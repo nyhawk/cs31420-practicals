@@ -165,12 +165,8 @@ def readFile(filename) -> list[str]:
     return sequences
 
 
-def main():
+def fastaFileReader():
     print("\n========================\nFasta file reader\n========================\n")
 
     for file in files: 
         readFile(file)     
-
-
-if __name__ == "__main__":
-    main()

@@ -259,10 +259,7 @@ def calculate_probability(mother_genotype, father_genotype, offspring_sex,
     return inherited, affected
 
 
-def main():
-    import sys
-
-    
+def inheritance():
     mother = input("Mother's genotype: ")
     father = input("Father's genotype: ")
     sex = input("Offspring sex (m/f): ")
@@ -281,5 +278,3 @@ def main():
     print(f"Probability of {sex} expressing the phenotype: {phenotype_probability:.1%}")
 
 
-if __name__ == "__main__":
-    main()
