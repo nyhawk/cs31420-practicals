@@ -1,0 +1,72 @@
+Design requirements for reading fasta files
+-------------------------------------------
+- multiple sequences [done]
+- special characters - only accept A-Za-z [done]
+- no header [done]
+- empty file
+- blank lines [done]
+- line endings
+- sequence data before header [done]
+- header marker in unexpected place [done]
+- lowercase and uppercase [done]
+- end of file variations - with/without trailing newline, byte-order mark
+- error behaviour
+
+
+
+formatting rules:
+- Each header line starts with a >. The header preceedes the sequence.
+- Every other line is considered a sequence line [done]
+- Sequence lines may not contain whitespace, numbers, or non-sequence characters. In other words, they must only contain the characters [A-Z] and [a-z]
+- Sequence lines can end with a new line or return depending on whether you have edited this file on a mac, pc, or linux machine.
+- Sequence lines can be empty. [done]
+- The sequence identifier is the string of characters in the header line following the > and upto the first whitespace. Everything after the first whitespace is descriptive, and can be as long as you like
+- Each sequence identifier must be unique within the fasta file.
+
+
+https://www.researchsolutions.com/blog/fasta-format-what-research-scientists-should-know
+Nucleic Acid Codes:
+A = adenosine          
+C = cytidine 
+G = guanine 
+T = thymidine 
+N = A/G/C/T (any)
+U = uridine
+R = G/A (purine) 
+Y = T/C (pyrimidine) 
+K = G/T (keto)  
+M = A/C (amino)
+S = G/C (strong)  
+W = A/T (weak) 
+B = G/T/C 
+D = G/A/T  
+H = A/C/T   
+V = G/C/A  
+
+Accepted Amino Acid Codes:
+A = alanine
+B = aspartate or asparagine
+C = cystine
+D = aspartate
+E = glutamate
+F = phenylalanine
+G = glycine 
+H = histidine
+I = isoleucine
+K = lysine 
+L = leucine
+M = methionine
+N = asparagine 
+P = proline
+Q = glutamine
+R = arginine
+S = serine
+T = threonine
+U = selenocysteine
+V = valine
+W = tryptophan
+Y = tyrosine
+Z = glutamate or glutamine
+X = any
+
+A single dash or hyphen (-) can be used to represent a gap of indeterminate length and an asterisk (*) can be used to represent a translation stop.

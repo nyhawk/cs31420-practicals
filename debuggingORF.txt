@@ -1,0 +1,2 @@
+ORF1, frame: +1, start position: 97, stop position: 222, ORF length: 126
+ORF4, frame: +1, start position: 535, stop position: 639, ORF length: 105

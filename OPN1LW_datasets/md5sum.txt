@@ -1,0 +1,5 @@
+d93a1bb60cd6dfdcd57e70ab01843ff0  ncbi_dataset/data/gene.fna
+d96e75e559f6215f7cf5f7c7d53fbc05  ncbi_dataset/data/rna.fna
+98b65d4fa1af4d1f0d8bc3b7ee5a28d6  ncbi_dataset/data/protein.faa
+ac4d62ecd6a7a16986ac99e143e853cb  ncbi_dataset/data/data_report.jsonl
+2ab4744af99728fed9d4c3171551a815  ncbi_dataset/data/dataset_catalog.json
