@@ -60,3 +60,8 @@ Translates a sequence of RNA into amino acids
 ## Practical 2b - filename orfs.py
 Find Open Reading Frames in a sequence of DNA
 
+## Practical 3
+1. Calculates GC content - gcContent.py
+2. Calculates similarity between sequences of amino acids by comparing each letter at each position in a sequence
+
+An algorithm for calculating Levenshtein distance is included but has not been written by me
