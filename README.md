@@ -44,6 +44,8 @@ python3 path/to/cs31420Practicals.py
 
 Install any additional dependencies specified by that practical before running it. Check files in the practical's directory for exercise-specific instructions.
 
+FASTA files read in the scripts are hardcoded currently. This may be improved in the future.
+
 # About each practical
 
 ## Practical 1a
@@ -55,5 +57,6 @@ Calculates the probability of a male or female child inheriting a defective gene
 ## Practical 2a
 Translates a sequence of RNA into amino acids
 
-## Practical 2b
+## Practical 2b - filename orfs.py
 Find Open Reading Frames in a sequence of DNA
+
