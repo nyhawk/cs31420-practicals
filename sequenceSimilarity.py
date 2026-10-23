@@ -20,41 +20,45 @@ different or similar two amino acid sequences are (e.g., 90%)
 import practical1a
 import levenshteinDistance
 
-# aa1 = "MATCPSGWLDK"
-# aa2 = "MPWKFLDGSLAAFHJSL"
+# seq1 = "MATCPSGWLDK"
+# seq2 = "MPWKFLDGSLAAFHJSL"
 
 
-def validate(aa1, aa2):
+def validate(seq1, seq2):
     # check they are the same length else calculation incorrect
-    if len(aa1) != len(aa2):
+    if len(seq1) != len(seq2):
         print("amino acid lengths must be the same")
         return 0
+    elif seq1 == "" or seq2 == "":
+        "sequence cannot be empty"
+        return 1
+    
 
-def similarity(aa1, aa2):
-    validation = validate(aa1, aa2)
+def similarity(seq1, seq2):
+    validation = validate(seq1, seq2)
     if validation is None:
         count = 0
-        for num in range (0, len(aa1)):
-            if aa1[num] == aa2[num]:
+        for num in range (0, len(seq1)):
+            if seq1[num] == seq2[num]:
                 count += 1
 
-        similartityScore = round(count/len(aa1), 5) 
+        similartityScore = round(count/len(seq1), 5) 
         percentageSimilarity = similartityScore * 100
-        print(f"Percentage similarity (Hamming distance), rounded to 3dp: {percentageSimilarity}%")
+        print(f"Percentage similarity (using Hamming distance), rounded to 3dp: {percentageSimilarity}%")
         return percentageSimilarity
 
 def main():
-    aa1List = practical1a.readFile("OPN1LW_datasets/ncbi_dataset/data/protein.faa")
-    aa2List = practical1a.readFile("OPN1LW_chimpanzee_datasets/ncbi_dataset/data/protein.faa")
+    seq1List = practical1a.readFile("OPN1LW_datasets/ncbi_dataset/data/protein.faa")
+    seq2List = practical1a.readFile("OPN1LW_chimpanzee_datasets/ncbi_dataset/data/protein.faa")
 
-    similarity(aa1List[0], aa2List[0])
+    similarity(seq1List[0], seq2List[0])
 
-    # DO NOT DO THIS IT TAKES TOO LONG
-    # timeLev = 3 ** len(aa2List[0])
-    timeLev = len(aa2List[0]) * len(aa1List[0])
+   
+    # timeLev = 3 ** len(seq2List[0])
+    timeLev = len(seq2List[0]) * len(seq1List[0])
     confirm = input(f"running levenshtein will take {timeLev}\nRun? y/n\n")
     if confirm == "y":
-        lev = levenshteinDistance.levenshteinFullMatrix(aa1List[0], aa2List[0]) #, len(aa1List[0]), len(aa2List[0]))
+        lev = levenshteinDistance.levenshteinFullMatrix(seq1List[0], seq2List[0]) #, len(seq1List[0]), len(seq2List[0]))
         print(f"Levenshtein distance: {lev}")
 
 if __name__ == "__main__":

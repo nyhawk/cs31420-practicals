@@ -54,6 +54,7 @@ def levenshteinFullMatrix(str1, str2):
 # str2 = "AAAATG"
 str1 = "ATCGTACG"
 str2 = "ATCCGTATCG"
-distance = levenshteinRecursive(str1, str2, len(str1), len(str2))
-print("Levenshtein Distance:", distance)
+# DO NOT RUN RECURSIVE ALGORITHM WITH A LARGE STRING, IT TAKES TOO LONG
+# distance = levenshteinRecursive(str1, str2, len(str1), len(str2))
+# print("Levenshtein Distance:", distance)
 
