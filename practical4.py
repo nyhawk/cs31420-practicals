@@ -36,8 +36,13 @@ def kFrequencyAnalysis(sequence, k, seqNum):
 
         # add to dict
         if currentMerKey in mers:
-            mers[currentMerKey][seqNum] += 1
-            # mers[currentMerKey] = currentMerDict
+            if seqNum in mers[currentMerKey]:
+                mers[currentMerKey][seqNum] += 1
+            else:
+                updateValue = mers.get(currentMerKey, {}) 
+                updateValue.update(currentMerDict)
+                mers[currentMerDict] = updateValue
+            
             
         else:
             mers[currentMerKey] = currentMerDict
