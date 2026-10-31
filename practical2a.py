@@ -104,9 +104,7 @@ def translateSequence(sequence) -> str:
         translation = codonTable.get(codonReplaceT)
         if translation == "stop":
             print(f"amino acids {aminoAcids}")
-            return aminoAcids
-            
-
+            return aminoAcids         
 
         else:
             if translation is not None:
@@ -142,12 +140,12 @@ def main():
     import practical1a
 
     sequences = practical1a.readFile("OPN1LW_datasets/ncbi_dataset/data/rna.fna")
-    for sequence in sequences:
+    for header, sequence in sequences:
         translation = translateSequence(sequence)
 
     actualAminoAcids = practical1a.readFile("OPN1LW_datasets/ncbi_dataset/data/protein.faa")    
     
-    checkTranslation(translation, actualAminoAcids)
+    checkTranslation(translation, actualAminoAcids[0][1])
 
 if __name__ == "__main__":
     main()

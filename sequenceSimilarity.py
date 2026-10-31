@@ -51,14 +51,17 @@ def main():
     seq1List = practical1a.readFile("OPN1LW_datasets/ncbi_dataset/data/protein.faa")
     seq2List = practical1a.readFile("OPN1LW_chimpanzee_datasets/ncbi_dataset/data/protein.faa")
 
-    similarity(seq1List[0], seq2List[0])
+    header1, seq1 = seq1List[0]
+    header2, seq2 = seq2List[0]
+
+    similarity(seq1, seq2)
 
    
     # timeLev = 3 ** len(seq2List[0])
-    timeLev = len(seq2List[0]) * len(seq1List[0])
+    timeLev = len(seq1) * len(seq2)
     confirm = input(f"running levenshtein will take {timeLev}\nRun? y/n\n")
     if confirm == "y":
-        lev = levenshteinDistance.levenshteinFullMatrix(seq1List[0], seq2List[0]) #, len(seq1List[0]), len(seq2List[0]))
+        lev = levenshteinDistance.levenshteinFullMatrix(seq1, seq2)
         print(f"Levenshtein distance: {lev}")
 
 if __name__ == "__main__":

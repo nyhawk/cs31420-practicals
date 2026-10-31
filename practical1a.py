@@ -103,7 +103,7 @@ def processSequence(data, sequenceType):
     return sequenceDict
 
     
-def readFile(filename) -> list[str]:
+def readFile(filename) -> list[tuple[str | None, str]]:
     with open(filename) as sequence_file:   
         current_header = None
         sequence = ""
@@ -121,7 +121,7 @@ def readFile(filename) -> list[str]:
                 # typical file data             
                 if current_header is not None and sequence:
                     print("Processing: ", current_header)
-                    sequences.append(sequence)
+                    sequences.append((current_header, sequence))
                     processSequence(sequence, sequenceType)                
                 
                 # if header has no following sequence
@@ -133,7 +133,7 @@ def readFile(filename) -> list[str]:
                     print(f"Sequence found before header line.")  
                     userInput = input("Would you like to analyse this sequence? y/n ")  
                     if userInput == "y":
-                        sequences.append(sequence)
+                        sequences.append((current_header, sequence))
                         processSequence(sequence, sequenceType)
 
                 # don't add header line to data list
@@ -148,7 +148,7 @@ def readFile(filename) -> list[str]:
     # at end of file
     if current_header is not None and sequence:
         print("Processing: ", current_header)
-        sequences.append(sequence)
+        sequences.append((current_header, sequence))
         processSequence(sequence, sequenceType)    
         sequence = ""    
 
@@ -158,7 +158,7 @@ def readFile(filename) -> list[str]:
         
         if processSequenceNoHeader == "y":
             print(f"\nProcessing sequence in {filename} \nSequence data treated as one sequence")
-            sequences.append(sequence)
+            sequences.append((current_header, sequence))
             processSequence(sequence, sequenceType)    
             sequence = ""   
 

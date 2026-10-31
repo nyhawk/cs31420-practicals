@@ -4,7 +4,7 @@ a. calculate 2-mer frequency of DNA sequences of OPN1SW, OPN1MW and
 OPN1LW genes.
 b. calculate sequence similarity using 2-mer frequency and Manhattan
 distance.
-2. Make your k-mer counting program more generalizable so it would take k value
+DONE 2. Make your k-mer counting program more generalizable so it would take k value
 as input.
 3. Make your similarity calculator more generalizable so it would take distance
 metric as input.
@@ -15,7 +15,7 @@ Python programmers.
 '''
 import practical1a
 testSeqA = "ATGGCCTTGA"
-testSeqB = "ATTGGGTAA"
+testSeqB = "ATTGGGTATA"
 
 
 files = [
@@ -26,22 +26,22 @@ files = [
 
 mers = {}
 
-def kFrequencyAnalysis(sequence, k, seqNum):
+def kFrequencyAnalysis(sequence, k, seqID):
     
 
     # find mers in each sequence
     for pos in range(len(sequence)-(k-1)):
         currentMerKey = sequence[pos:pos+k]
-        currentMerDict = {seqNum: 1}
+        currentMerDict = {seqID: 1}
 
         # add to dict
         if currentMerKey in mers:
-            if seqNum in mers[currentMerKey]:
-                mers[currentMerKey][seqNum] += 1
+            if seqID in mers[currentMerKey]:
+                mers[currentMerKey][seqID] += 1
             else:
                 updateValue = mers.get(currentMerKey, {}) 
                 updateValue.update(currentMerDict)
-                mers[currentMerDict] = updateValue
+                mers[currentMerKey] = updateValue
             
             
         else:
@@ -53,10 +53,16 @@ def kFrequencyAnalysis(sequence, k, seqNum):
 
 
 
-# def manhattanDistance():
-#     # Dm = sum of abs(a-b)
+def manhattanDistance():
+    # Dm = sum of abs(a-b)
+    
 
-#     for pos in allMers:
+    for mer in mers:
+        # get a mer eg "AT"
+        # mer give just the key to the main dictionary
+        # then get the values in each sequence and minus them
+        print("\n", mers[mer][])
+        # abs(me)
 
 
 
@@ -64,14 +70,19 @@ def kMerCounting():
     # user input k value
     k = 2
     # read files with sequence
-    seqStrings = []
+    records = []
     count = 0
-    # for file in files:
-    #     seqences = practical1a.readFile(file)
-    #     count += 1
+    for file in files:
+        records = practical1a.readFile(file)
 
-    kFrequencyAnalysis(testSeqA, k, 1)
-    kFrequencyAnalysis(testSeqB, k, 2)
+        for header, sequence in records:
+            kFrequencyAnalysis(sequence, k, header)
+
+    print("done") 
+    manhattanDistance()
+
+    # kFrequencyAnalysis(testSeqA, k, 1)
+    # kFrequencyAnalysis(testSeqB, k, 2)
 
     
 

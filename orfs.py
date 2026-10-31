@@ -89,7 +89,7 @@ def main():
       import practical1a
   
       sequences = practical1a.readFile("OPN1LW_datasets/ncbi_dataset/data/gene.fna")
-      for sequence in sequences:
+      for header, sequence in sequences:
           findOrfs(sequence)
 
 if __name__ == "__main__":
