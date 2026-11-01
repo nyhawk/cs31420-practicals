@@ -1,21 +1,26 @@
 '''
 Write a program to
-a. calculate 2-mer frequency of DNA sequences of OPN1SW, OPN1MW and
+DONE a. calculate 2-mer frequency of DNA sequences of OPN1SW, OPN1MW and
 OPN1LW genes.
-b. calculate sequence similarity using 2-mer frequency and Manhattan
+DONE b. calculate sequence similarity using 2-mer frequency and Manhattan
 distance.
 DONE 2. Make your k-mer counting program more generalizable so it would take k value
 as input.
-3. Make your similarity calculator more generalizable so it would take distance
+DONE 3. Make your similarity calculator more generalizable so it would take distance
 metric as input.
 4. Measure runtime of your program for every k value from 1 to 5.
 5. Plot your results to visualize the relationship between k value and runtime (x-
 axis: k value and y-axis: runtime). I recommend Matplotlib plotting library for
 Python programmers.
 '''
-import practical1a
+import practical1a, math, timeit, time
+import matplotlib.pyplot as plt
+
 testSeqA = "ATGGCCTTGA"
 testSeqB = "ATTGGGTATA"
+
+startTime = 0
+endTime = 0
 
 
 files = [
@@ -26,9 +31,22 @@ files = [
 
 mers = {}
 
-def kFrequencyAnalysis(sequence, k, seqID):
-    
+def normaliseMers():
+    totals = {}
 
+    for countsBySequence in mers.values():
+        for seqID, count in countsBySequence.items():
+            totals[seqID] = totals.get(seqID, 0) + count
+
+    frequencies = {}
+    for mer, countsBySequence in mers.items():
+        frequencies[mer] = {
+            seqID: count / totals[seqID]
+            for seqID, count in countsBySequence.items()
+        }
+    return frequencies                
+
+def kFrequencyAnalysis(sequence, k, seqID):  
     # find mers in each sequence
     for pos in range(len(sequence)-(k-1)):
         currentMerKey = sequence[pos:pos+k]
@@ -47,44 +65,127 @@ def kFrequencyAnalysis(sequence, k, seqID):
         else:
             mers[currentMerKey] = currentMerDict
 
-        # test
-    print(mers)
+def euclideanDistance(count1, count2):
+    distance = math.sqrt((count1 - count2)**2)
+    return distance
 
 
-
-
-def manhattanDistance():
+def manhattanDistance(count1, count2):
     # Dm = sum of abs(a-b)
+    distance = abs(count1 - count2)
+    return distance
+
+
+def calculateSimilarity(seqID1, seqID2, frequencies, distanceMetric):       
+    # Calculate the distance using the passed-in metric
+    distance = 0
+    for countsPerSeq in frequencies.values():
+        count1 = countsPerSeq.get(seqID1, 0)
+        count2 = countsPerSeq.get(seqID2, 0)
+        distance += distanceMetric(count1, count2)
     
+   
+    similarity = 1 / (1 + distance)
+    return similarity
 
-    for mer in mers:
-        # get a mer eg "AT"
-        # mer give just the key to the main dictionary
-        # then get the values in each sequence and minus them
-        print("\n", mers[mer][])
-        # abs(me)
+def formatHeader(header):
+    header = header.split(" ")
+    return header[0]
 
-
-
-def kMerCounting():
-    # user input k value
-    k = 2
-    # read files with sequence
-    records = []
-    count = 0
+def readInSequences():
     for file in files:
         records = practical1a.readFile(file)
+    return records
 
-        for header, sequence in records:
-            kFrequencyAnalysis(sequence, k, header)
+def kMerCounting(k, records):   
+    # read files with sequence
+    sequenceIDs = []    
 
-    print("done") 
-    manhattanDistance()
+    for header, sequence in records:
+        shortHeader = formatHeader(header)
+        kFrequencyAnalysis(sequence, k, shortHeader)
+        if shortHeader not in sequenceIDs:
+            sequenceIDs.append(shortHeader)
 
-    # kFrequencyAnalysis(testSeqA, k, 1)
-    # kFrequencyAnalysis(testSeqB, k, 2)
+    for mer, counts in sorted(mers.items()):
+        print(mer, counts) 
+
+    return sequenceIDs
 
     
-
+    
+    endTime = timeit.default_timer()
+    runtime = endTime - startTime
+    print(f"Runtime for k={k} is {runtime}")
+    
+def distance():
+    # user input k value
+    k = int(input("enter K value\n").strip())
+    records = readInSequences()
+    sequenceIDs = kMerCounting(k, records) # do k frequency first
+    
+    # comparing every pair of sequences of OPN1 
+    frequencies = normaliseMers()
+    
+    distanceMetricInp = int(input("Choose distance metric:\n"
+                           "1. Manhattan distance\n"
+                           "2. Euclidean distance\n"))
+    distanceMetric = manhattanDistance
+    match distanceMetricInp:
+        case "1":
+            distanceMetric = manhattanDistance
+            
+        case "2":
+            distanceMetric = euclideanDistance
+        
+    for i in range(len(sequenceIDs)):
+        for j in range(i + 1, len(sequenceIDs)):
+            distance = calculateSimilarity(sequenceIDs[i], sequenceIDs[j], frequencies, distanceMetric)
+            print(f"Distance between sequences {sequenceIDs[i]} and {sequenceIDs[j]}: {distance}\n")
+ 
+    
+def findingRuntime():
+    runtimes = []
+    startTime = time.time()
+    sequences = readInSequences()
+    for k in range(1, 6):
+        kMerCounting(k, sequences)
+        endTime = time.time()
+        runtime = endTime - startTime
+        runtimes.append(runtime)
+        
+    print(runtimes)
+    
+    # plotting values
+    x = range(1, 6)
+    y = runtimes
+    
+    plt.plot(x,y, "o:k")
+    
+    plt.title("Runtimes for k-mer analysis on OPN1 DNA sequences for LW, MW and SW variants for humans")
+    plt.ylabel("Runtime (seconds)")
+    plt.xlabel("k values")
+    #plt.xticks(x, ['1', '2', '3', '4', '5'])
+    plt.show()
+    
+    
+def main():
+    inputVal = int(input("Choose calculation:\n"
+                "1. k-mer frequency analysis\n"
+                "2. sequence similarity\n"
+                "3. Runtime for k=1 to k=5\n"))
+    match inputVal:
+        case 1:
+            # user input k value
+            k = int(input("enter K value\n").strip())
+            records = readInSequences()
+            kMerCounting(k, records)
+        case 2:
+            distance()
+        case 3:
+            findingRuntime()
+    
+            
+            
 if __name__ == "__main__":
-    kMerCounting()
+    main()

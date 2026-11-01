@@ -1,4 +1,4 @@
-import practical1a, practical1b, practical2a, gcContent, orfs, sequenceSimilarity
+import practical1a, practical1b, practical2a, gcContent, orfs, sequenceSimilarity, practical4
 
 def main():
     print("================================")
@@ -10,7 +10,8 @@ def main():
     "3 - mRNA translation to amino acids\n"
     "4 - ORF finder\n"
     "5 - GC content calculator\n"
-    "6 - Similarity calculator\n")
+    "6 - Similarity calculator\n"
+    "7 - K-mer analysis and similarity calculator\n")
 
     match selection.strip():
         case "1":
@@ -25,6 +26,8 @@ def main():
             gcContent.main()
         case "6":
             sequenceSimilarity.main()
+        case "7":
+            practical4.main()
 
 
 

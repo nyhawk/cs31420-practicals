@@ -130,7 +130,7 @@ def readFile(filename) -> list[tuple[str | None, str]]:
 
                 # if sequence before header
                 elif current_header is None and sequence:
-                    print(f"Sequence found before header line.")  
+                    print("Sequence found before header line.")  
                     userInput = input("Would you like to analyse this sequence? y/n ")  
                     if userInput == "y":
                         sequences.append((current_header, sequence))
