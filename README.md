@@ -64,4 +64,9 @@ Find Open Reading Frames in a sequence of DNA
 1. Calculates GC content - gcContent.py
 2. Calculates similarity between sequences of amino acids by comparing each letter at each position in a sequence
 
-An algorithm for calculating Levenshtein distance is included but has not been written by me
+An algorithm for calculating Levenshtein distance is included but has not been written by me.
+
+## Practical 4
+1. Calculates k-mer frequency of DNA sequences of OPN1SW, OPN1MW and OPN1LW genes.
+2. Calculates sequence similarity using Manhattan and Euclidean distances.
+3. Calculates the runtime of finding k=1 to k=5 and plots the runtime data in a graph.
