@@ -1,9 +1,3 @@
-# def distance(seq1, seq2, pos1, pos2):
-#     if seq1[pos1-1] == seq2[pos2-1]:
-#         return distance(seq1, seq2, pos1+1, pos2+1)
-#     elif seq1[pos1] == seq1[pos2-1]:
-#         distance(seq1, seq2, pos)
-
 '''
 Write a program to calculate the similarity between two amino acid sequences.
 For simplicity, you may assume that two sequences have the same number of

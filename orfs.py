@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+'''
+ORF Finder for Practical 3 
+'''
 stopCodons = ["TAA", "TAG", "TGA"]
 def reverseComplement(sequence):
     # generate reverse complement of given sequence

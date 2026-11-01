@@ -276,5 +276,3 @@ def inheritance():
     
     print(f"Probability of {sex} inheriting at least one defective allele: {allele_probability:.1%}")
     print(f"Probability of {sex} expressing the phenotype: {phenotype_probability:.1%}")
-
-
