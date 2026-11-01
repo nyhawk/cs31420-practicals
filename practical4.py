@@ -89,10 +89,13 @@ def calculateSimilarity(seqID1, seqID2, frequencies, distanceMetric):
     return similarity
 
 def formatHeader(header):
+    # format header to only include first part of header before space
     header = header.split(" ")
     return header[0]
 
 def readInSequences():
+    # read in sequences from files
+    # separate function so files only read once
     for file in files:
         records = practical1a.readFile(file)
     return records
